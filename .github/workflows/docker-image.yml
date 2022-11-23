@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: pushImage
 
 on:
   push:
@@ -6,13 +6,31 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+    CONTAINER_REGISTRY: docker.io
+    CONTAINER_NAME: webhook-channel
+    DEPLOYMENT_MANIFEST_PATH: |
+        ./manifests/deployment.yml
+        ./manifests/secret.yml
+        ./manifests/service.yaml
 jobs:
+    buildImage:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              name: Checkout Code
+            
+            - name: Login to image repository
+              uses: docker/login-action@v2
+              with:
+                registry: ${{ env.CONTAINER_REGISTRY }}
+                username: ${{ secrets.DOCKER_USER }}
+                password: ${{ secrets.DOCKER_PASSWORD }}
 
-  build:
+            - name: Build docker image
+              run: |
+                docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/${{ env.CONTAINER_NAME }}:${{ github.run_number }}
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+            - name: Push the image
+              run: |
+                docker push ${{ secrets.DOCKER_USER }}/${{ env.CONTAINER_NAME }}:${{ github.run_number }}
