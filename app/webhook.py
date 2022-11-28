@@ -86,6 +86,7 @@ def json_file_report_downloader(url, report_name):
 
 
 def json_convert_vulndb_to_cve(report, report_name):
+    all_queried_vulnid_list.clear()
     csv_data_list = []
     vulnId_cveId_data_list = []
     vulnId_cveId_data_dict = {}
