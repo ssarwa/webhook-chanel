@@ -149,6 +149,7 @@ def json_convert_vulndb_to_cve(report, report_name):
                 vulnId_cveId_data_dict["CVSS v2 base score"] = csv_data_dict["CVSS v2 base score"]
                 vulnId_cveId_data_dict["CVSS v3 base score"] = csv_data_dict["CVSS v3 base score"]
                 vulnId_cveId_data_dict["Vuln link"] = csv_data_dict["Vuln link"]
+                vulnId_cveId_data_dict["Severity"] = csv_data_dict["Severity"]
                 vulnId_cveId_data_list.append(vulnId_cveId_data_dict.copy())
                 vulnId_cveId_data_dict.clear()
             else:
