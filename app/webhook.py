@@ -129,12 +129,14 @@ def json_convert_vulndb_to_cve(report, report_name):
                 if converted_nvd_data["cvss_v2"] is not None:
                     csv_data_dict["CVSS v2 vector"] = converted_nvd_data["cvss_v2"]["vector_string"]
                     csv_data_dict["CVSS v2 base score"] = converted_nvd_data["cvss_v2"]["base_metrics"]["base_score"]
+                    csv_data_dict["Severity"] = converted_nvd_data["cvss_v2"]["severity"]
                 else:
                     csv_data_dict["CVSS v2 vector"] = ""
                     csv_data_dict["CVSS v2 base score"] = ""
                 if converted_nvd_data["cvss_v3"] is not None:
                     csv_data_dict["CVSS v3 vector"] = converted_nvd_data["cvss_v3"]["vector_string"]
                     csv_data_dict["CVSS v3 base score"] = converted_nvd_data["cvss_v2"]["base_metrics"]["base_score"]
+                    csv_data_dict["Severity"] = converted_nvd_data["cvss_v3"]["severity"]
                 else:
                     csv_data_dict["CVSS v3 vector"] = ""
                     csv_data_dict["CVSS v3 base score"] = ""
