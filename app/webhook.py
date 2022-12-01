@@ -162,6 +162,7 @@ def json_convert_vulndb_to_cve(report, report_name):
                     csv_data_dict["CVSS v3 vector"] = matched_item["CVSS v3 vector"]
                     csv_data_dict["CVSS v3 base score"] = matched_item["CVSS v3 base score"]
                     csv_data_dict["Vuln link"] = matched_item["Vuln link"]
+                    csv_data_dict["Severity"] = matched_item["Severity"]
                 except Exception as e:
                     webhook.logger.info(f'Reason: {e}')
 
